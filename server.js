@@ -22,7 +22,20 @@ app.get('/coffees', (request, response) => {
 
 app.get('/coffees/:id', (request, response) => {});
 
-app.post('/coffees', (request, response) => {});
+app.post('/coffees', (request, response) => {
+  // origin, flavor, roast, price
+  console.log(`request.body: ${request.body}`); // debug
+  const { origin, flavor, roast, price } = request.body;
+  const newCoffee = { origin, flavor, roast, price };
+
+  knex('coffees')
+  .insert(newCoffee)
+  .returning('*')
+  .then(rows => {
+    const coffee = rows[0];
+    response.json(coffee);
+  });
+});
 
 app.put('/coffees/:id', (request, response) => {});
 
