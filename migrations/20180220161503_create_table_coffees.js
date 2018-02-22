@@ -1,4 +1,6 @@
 
+// database name is coffee-review
+// table name is coffees
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('coffees', (table) => {
     table.increments();
